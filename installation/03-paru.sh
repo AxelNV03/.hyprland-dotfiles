@@ -26,7 +26,9 @@ if ! command -v paru &> /dev/null; then
     if git clone https://aur.archlinux.org/paru.git /tmp/paru; then
         (
             cd /tmp/paru || exit 1
-            makepkg -si --noconfirm
+            execute_step "Instalando Paru" \
+                         "makepkg -si --noconfirm" \
+                         "Paru"                
         )
         rm -rf /tmp/paru
     fi

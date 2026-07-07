@@ -3,6 +3,20 @@
 # INSTALACIÓN AUTOMATIZADA - ARCH / DERIVADAS
 # =====================================================================
 
+# Sudo solo una vez
+echo -e "${YELLOW}🔑 Solicitando privilegios administrativos...${NC}"
+# El flag -v (validate) fuerza a pedir la contraseña y actualiza el timestamp de sudo
+if ! sudo -v; then
+    echo -e "${RED}❌ Error: No se pudieron obtener privilegios. Abortando.${NC}"
+    exit 1
+fi
+
+# Mantener la sesión activa en segundo plano (opcional)
+# Esto actualiza el timestamp cada minuto mientras el script corre
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+SUDO_PID=$!
+trap 'kill $SUDO_PID' EXIT
+
 # 1. Ruta absoluta
 BASE_DIR=$(cd "$(dirname "$0")" && pwd)
 DOTFILES_DIR=$(cd "$BASE_DIR/../" && pwd)  # un nivel arriba de /installation/
@@ -67,7 +81,7 @@ if [ "$ERROR_COUNT" -eq 0 ]; then
     echo -e "${GREEN}    ✨ ¡Proceso finalizado con éxito!${NC}"
     echo -e "${GREEN}    Todos los módulos se completaron correctamente.${NC}"
 else
-    echo -e "${RED}⚠️  Se detectaron $ERROR_COUNT error(es) durante la instalación.${NC}"
+    echo -e "${RED}⚠️  Se detectaron $ERROR_COUNT errores durante la instalación.${NC}"
     echo -e "${YELLOW}    Revisa el log para más detalles:${NC}"
     echo -e "${YELLOW}    $LOG_FILE${NC}"
 fi
