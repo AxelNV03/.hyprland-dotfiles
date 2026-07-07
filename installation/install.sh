@@ -41,7 +41,7 @@ declare -a SCRIPTS=(
     "$BASE_DIR/02-packages.sh"
     "$BASE_DIR/03-paru.sh"
     "$BASE_DIR/04-start_services.sh"
-    "$BASE_DIR/05-battery.sh"
+    # "$BASE_DIR/05-battery.sh"  #Solo se ejecuta si es laptop
 )
 
 for script in "${SCRIPTS[@]}"; do

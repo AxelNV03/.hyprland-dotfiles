@@ -17,6 +17,8 @@ PKGS_SYSTEM=(
     "bluez-utils"                 # Herramientas de control por línea de comandos para Bluetooth (Incluye bluetoothctl)
     "dnsmasq"                     # Servidor ligero de DNS/DHCP para manejo rápido de redes locales
     "tree"                        # Visor en arbol de directorios y files
+    "rust"                        # Increible
+    "unarchiver"              # Extractor universal inteligente que maneja nombres de archivos con codificaciones raras
 )
 
 # --- [ 2. MOTORES DE COMPRESIÓN Y EXTRACCIÓN ] ---
@@ -29,7 +31,6 @@ PKGS_COMPRESSION=(
     "lz4"                         # Algoritmo de compresión ultra-rápido enfocado en velocidad de descompresión en tiempo real
     "lzo"                         # Compresor enfocado en velocidad (Muy usado por el kernel y sistemas de archivos)
     "cpio"                        # Archivador clásico de Unix utilizado por instaladores y gestores de paquetes initramfs
-    "the-unarchiver"              # Extractor universal inteligente que maneja nombres de archivos con codificaciones raras
 )
 
 # --- [ 3. ECOSISTEMA DE PANTALLA Y WAYLAND CORE ] ---
@@ -55,7 +56,6 @@ PKGS_APPS=(
     "nvim"                        # Neovim: El editor de texto extensible basado en teclado para desarrollo ágil
     "vscode"                      # Visual Studio Code: IDE secundario para proyectos extensos o debugging visual
     "greetd"                      # Demonio de inicio de sesión gráfico/consola agnóstico y seguro que corre en segundo plano
-    "tuigreet"                    # Interfaz de texto avanzada (TUI) para greetd que permite loguearte de forma minimalista
     "cliphist"                    # Gestor de historial del portapapeles que almacena tanto texto plano como imágenes binarias
     "wl-clipboard"                # Utilidades de bajo nivel para Wayland (`wl-copy`/`wl-paste`) necesarias para clonar texto
     "wf-recorder"                 # Grabador de pantalla por línea de comandos optimizado para compositores basados en wlroots
@@ -75,7 +75,6 @@ PKGS_AUDIO=(
     "pipewire-pulse"              # Servidor proxy que traduce llamadas de apps PulseAudio antiguas al servidor de PipeWire
     "pipewire-alsa"               # Capa de emulación para enrutar el software que busca drivers de bajo nivel de ALSA
     "wireplumber"                 # El cerebro de PipeWire; gestiona sesiones, políticas de dispositivos y suspensión automática
-    "pwvucontrol"                 # Control de volumen avanzado escrito en GTK4 nativo para PipeWire (Reemplaza a pavucontrol)
     "easyeffects"                 # Procesador de efectos avanzado para ecualizar y limitar tus IEMs Hidizs MS3 y JBL Charge 6
     "qpwgraph"                    # Matriz de conexiones gráfica para cablear virtualmente apps a salidas de audio específicas
     "playerctl"                   # Utilidad CLI que intercepta y controla reproductores multimedia usando teclas de función (FN)
@@ -89,7 +88,6 @@ PKGS_DESKTOP=(
     "hyprpaper"                   # Utilidad oficial de Hyprland para inyectar fondos de pantalla en múltiples monitores
     "hyprlock"                    # Bloqueador de pantalla seguro con soporte para blur, shaders y diseño estético nativo
     "hypridle"                    # Demonio de gestión de inactividad (Atenúa el brillo y bloquea el sistema tras X minutos)
-    "wlogout"                     # Menú visual a pantalla completa basado en CSS/JSON para gestionar apagado, reinicio y suspensión
     "brightnessctl"               # Utilidad de bajo nivel para ajustar por software la luz de fondo de la pantalla de tu laptop
 )
 
@@ -100,7 +98,7 @@ PKGS_TERMINAL=(
     "zsh"                         # El shell interactivo avanzado configurado para tus atajos de desarrollo
     "zsh-autosuggestions"         # Plugin que te sugiere comandos de forma inteligente basados en tu historial estilo Fish
     "zsh-syntax-highlighting"     # Resaltado de sintaxis en tiempo real para comandos válidos y rutas en tu terminal
-    "zsh-history-substring-search"# Permite buscar comandos en tu historial escribiendo cualquier parte de una palabra previa
+    "zsh-history-substring-search" # Permite buscar comandos en tu historial escribiendo cualquier parte de una palabra previa
     "fastfetch"                   # Herramienta moderna en C para imprimir los specs del sistema de forma ultra-rápida al abrir Kitty
     "btop"                        # Monitor de procesos e hilos con interfaz gráfica en terminal (Muestra carga de CPU, RAM y red)
     "expac"                       # Extractor de datos para Pacman indispensable para que funcione tu alias 'rip' de apps recientes
@@ -151,7 +149,9 @@ ALL_PACKAGES=(
 
 echo "📦 Total de paquetes core indexados con éxito: ${#ALL_PACKAGES[@]}"
 
-# Mandamos el array limpio a pacman de forma segura e idempotente
-execute_step "Instalando Paquetes" \
-             "sudo pacman -S --needed --noconfirm ${ALL_PACKAGES[*]}" \
+# Convertimos el array a una lista limpia separada por espacios simples para evitar que falle el evaluador de strings
+PACKAGES_STR="${ALL_PACKAGES[*]}"
+
+execute_step "Instalando paquetes core desde repositorios oficiales" \
+             "sudo pacman -S --needed --noconfirm $PACKAGES_STR" \
              "Base-Packages"

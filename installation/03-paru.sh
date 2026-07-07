@@ -8,6 +8,9 @@
 PARU_PKGS=(
     "losslesscut-bin"               # Editor de video sin pérdida (Ultra rápido, ideal para clips multimedia)
     "brave-origin-nightly-bin"      # Browser
+    "greetd-tuigreet-git"         # Interfaz de texto avanzada (TUI) para greetd que permite loguearte de forma minimalista
+    "pwvucontrol"                 # Control de volumen avanzado escrito en GTK4 nativo para PipeWire (Reemplaza a pavucontrol)
+    "wlogout"                     # Menú visual a pantalla completa basado en CSS/JSON para gestionar apagado, reinicio y suspensión
 )
 
 echo -e "${BLUE}🛠️ Verificando instalador de AUR (Paru)...${NC}"
@@ -16,9 +19,13 @@ echo -e "${BLUE}🛠️ Verificando instalador de AUR (Paru)...${NC}"
 if ! command -v paru &> /dev/null; then
     echo -e "${YELLOW}⏳ Paru no encontrado. Compilando desde origen...${NC}"
     
+    # ─── SOLUCIÓN AL BUG ANTERIOR ───
+    # Limpiamos preventivamente para que git clone jamás vuelva a decir que la ruta ya existe
+    rm -rf /tmp/paru
+    
     if git clone https://aur.archlinux.org/paru.git /tmp/paru; then
         (
-            cd /tmp/paru || exit
+            cd /tmp/paru || exit 1
             makepkg -si --noconfirm
         )
         rm -rf /tmp/paru
@@ -27,6 +34,8 @@ if ! command -v paru &> /dev/null; then
     # Cláusula de escape si la compilación falla
     if ! command -v paru &> /dev/null; then
         echo -e "${RED}❌ Error crítico: No se pudo consolidar Paru. Abortando...${NC}"
+        # Sumamos al contador global para que tu install.sh se entere del fallo
+        incrementar_contador_errores 2>/dev/null
         exit 1
     fi
 else
