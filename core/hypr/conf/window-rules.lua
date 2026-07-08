@@ -32,3 +32,13 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
+
+-- Regla de ventana para el monitor de procesos flotante lanzado desde Waybar
+hl.window_rule({
+  match = { 
+    class = "waybar-monitor" 
+  },
+  float = true,
+  size  = { "850", "550" }, -- La API pide strings para expresiones o medidas fijas
+  center = true
+})

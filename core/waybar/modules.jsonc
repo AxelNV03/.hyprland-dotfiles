@@ -1,0 +1,8 @@
+{
+    "include": [
+        "~/.config/waybar/modules/sistema.jsonc",
+        "~/.config/waybar/modules/hardware.jsonc",
+        "~/.config/waybar/modules/compositor.jsonc",
+        "~/.config/waybar/modules/utilidades.jsonc"
+    ]
+}
