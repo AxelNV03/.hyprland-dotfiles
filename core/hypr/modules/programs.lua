@@ -3,7 +3,7 @@
 -- =====================================================================
 terminal = "kitty"
 novelas = "kitty"
-fileManager = "kitty --class yazi -e yazi"
-ide = "kitty --class nvim -e nvim"
+fileManager = "thunar"
+ide = "code"
 menu = "rofi -show drun"
-browser = "brave-origin-nightly"
+browser = "firefox"

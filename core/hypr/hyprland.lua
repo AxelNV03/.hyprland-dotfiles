@@ -1,58 +1,62 @@
+-- COLORES
+require("modules/colors")
+
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
-require("conf/environment")
+require("modules/env")
 
 -----------------------
 ----- PERMISSIONS -----
 -----------------------
-require("conf/permissions")
+require("modules/permissions")
 
 ------------------
 ---- MONITORS ----
 ------------------
-require("conf/monitors")
+require("modules/monitors")
 
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
-require("conf/programs")
+require("modules/programs")
 
 -----------------
 ---- LAYOUTS ----
 -----------------
-require("conf/layouts")
+require("modules/layouts")
 
 ----------------------
 ---- CURVAS, FEEL ----
 ----------------------
-require("conf/curves")
--- require("conf/animations")
--- require("conf/appearance")
+require("modules/curves")
+require("modules/animations")
+require("modules/appearance")
 
 -------------------------
 ---- RULES ----
 -------------------------
-require("conf/workspace-rules")
-require("conf/window-rules")
-require("conf/layer-rules")
+require("modules/workspace-rules")
+require("modules/window-rules")
+require("modules/layer-rules")
 
 ---------------
 ---- INPUT ----
 ---------------
-require("conf/input")
+require("modules/input")
 
 ----------------
 ----  MISC  ----
 ----------------
-require("conf/misc")
+require("modules/misc")
 
 ------------------
 ---- KEYBINDS ----
 ------------------
-require("conf/keybinds")
+require("modules/keybinds")
 
 -------------------
 ---- AUTOSTART ----
 -------------------
-require("conf/autostart")
+require("modules/autostart")
+

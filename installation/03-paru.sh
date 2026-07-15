@@ -1,18 +1,42 @@
 #!/usr/bin/env bash
-
 # =====================================================================
-#               INSTALACIÓN DE PAQUETES DE AUR Y AUR
+#     INSTALACIÓN DE PARU + PAQUETES AUR
 # =====================================================================
 
-# --- 1. Catálogo Limpio de Paquetes AUR ---
-PARU_PKGS=(
-    "losslesscut-bin"               # Editor de video sin pérdida (Ultra rápido, ideal para clips multimedia)
-    "brave-origin-nightly-bin"      # Browser
-    "greetd-tuigreet-git"         # Interfaz de texto avanzada (TUI) para greetd que permite loguearte de forma minimalista
-    "pwvucontrol"                 # Control de volumen avanzado escrito en GTK4 nativo para PipeWire (Reemplaza a pavucontrol)
-    "wlogout"                     # Menú visual a pantalla completa basado en CSS/JSON para gestionar apagado, reinicio y suspensión
+# --- [ 1. CATÁLOGO DE PAQUETES AUR ] ---
+
+# Sistema y utilidades para Hyprland
+PARU_SYSTEM=(
+    "greetd-tuigreet-git"         # Interfaz TUI para greetd — Login minimalista
+    "pwvucontrol"                 # Control de volumen GTK4 nativo para PipeWire
+    "wlogout"                     # Menú de apagado/cierre de sesión a pantalla completa
+    "swayosd"                     # OSD (on-screen display) para brillo/volumen estilo GNOME
+    "overskride-bin"              # Gestor de Bluetooth moderno para Wayland
+    "quickshell-git"              # Shell rápido para widgets y paneles en Hyprland
 )
 
+# Temas y personalización visual
+PARU_THEMES=(
+    "catppuccin-gtk-theme-mocha"
+    "colloid-catppuccin-theme-git"
+    "papirus-folders-git"
+)
+
+# Aplicaciones de usuario
+PARU_APPS=(
+    "losslesscut-bin"             # Editor de video sin pérdida — Cortes rápidos
+    "brave-origin-nightly-bin"    # Brave Browser (nightly)
+    "visual-studio-code-bin"      # VS Code oficial de Microsoft (con telemetría y extensiones propietarias)
+)
+
+# --- [ 2. UNIFICACIÓN ] ---
+PARU_PKGS=(
+    "${PARU_SYSTEM[@]}"
+    "${PARU_THEMES[@]}"
+    "${PARU_APPS[@]}"
+)
+
+# --- [ 3. INSTALACIÓN DE PARU ] ---
 echo -e "${BLUE}🛠️ Verificando instalador de AUR (Paru)...${NC}"
 
 # 2. Compilación e Instalación Idempotente de Paru
@@ -44,11 +68,12 @@ else
     echo -e "✅ Gestor Paru: OK"
 fi
 
-
-# 3. Despliegue en bucle utilizando tus bloques de control
-echo -e "${BLUE}📦 Iniciando instalación de paquetes AUR con Paru...${NC}"
+# --- [ 4. INSTALACIÓN DE PAQUETES AUR ] ---
+echo -e "${BLUE}📦 Instalando paquetes desde AUR...${NC}"
 for pkg in "${PARU_PKGS[@]}"; do
-    execute_step "Instalando desde AUR: $pkg" \
+    execute_step "AUR → $pkg" \
                  "paru -S --needed --noconfirm $pkg" \
                  "$pkg"
 done
+
+echo -e "${GREEN}✅ Paquetes AUR instalados correctamente.${NC}"

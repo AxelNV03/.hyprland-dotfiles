@@ -1,0 +1,202 @@
+/* ~/.config/swaync/style.css
+ * Adaptado a la paleta de colores de Matugen */
+@import url("../swaync/colors.css");
+
+/* Reset suave */
+* {
+  color: @on_surface;
+  font-size: 14px;
+  font-family: "JetBrains Mono Nerd Font";
+  transition: 200ms;
+}
+
+/* Control-center principal */
+.control-center {
+  background-color: rgba(18, 20, 13, 0.85); /* Basado en @surface con opacidad */
+  border-radius: 24px;
+  border: 1px solid @primary;
+  box-shadow: 0 0 15px 0 @shadow;
+  margin: 18px;
+  padding: 12px;
+}
+
+/* Notificaciones */
+.notification-row {
+  outline: none;
+  margin-bottom: 8px;
+}
+
+.control-center .notification-row .notification-background {
+  background-color: @surface_container;
+  border: 1px solid @outline_variant;
+  border-radius: 16px;
+  padding: 4px;
+}
+
+.notification-content {
+  margin: 6px;
+}
+
+/* Texto secundario/cuerpo dentro de la notificación si existiera */
+.notification-content text {
+  color: @on_surface_variant;
+}
+
+.notification-action {
+  background: alpha(@primary_container, 0.6);
+  color: @on_primary_container;
+  border-radius: 12px;
+  margin: 6px;
+}
+
+.notification-action:hover { 
+  background: @primary_container; 
+}
+
+.close-button {
+  background: transparent;
+  border-radius: 6px;
+  margin: 0;
+  padding: 4px;
+}
+
+.close-button:hover { 
+  background: @surface_bright; 
+}
+
+/* ---------- WIDGETS ---------- */
+
+/* Título + botón Clear */
+.widget-title {
+  font-size: 1.2em;
+  margin: 6px;
+  color: @primary;
+}
+
+.widget-title button {
+  background: @surface_container_high;
+  border-radius: 6px;
+  padding: 4px 16px;
+}
+
+.widget-title button:hover { 
+  background: @surface_bright; 
+}
+
+/* Do-Not-Disturb switch */
+.widget-dnd {
+  margin: 6px 9px 6px 6px;
+  font-size: 1.2rem;
+}
+
+.widget-dnd > switch {
+  background: @surface_container_highest;
+  border-radius: 8px;
+  min-width: 40px;
+  min-height: 20px;
+  padding: 2px;
+}
+
+.widget-dnd > switch:checked { 
+  background: @primary; 
+}
+
+.widget-dnd > switch slider {
+  background: @on_primary;
+  border-radius: 50%;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+/* Botones rápidos */
+.widget-buttons-grid {
+  font-size: x-large;
+  padding: 6px 2px;
+  margin: 6px;
+  border-radius: 12px;
+  background: @surface_container_low;
+}
+
+.widget-buttons-grid button {
+  margin: 4px 10px;
+  padding: 6px 12px;
+  background: transparent;
+  border-radius: 8px;
+}
+
+.widget-buttons-grid button:hover { 
+  background: @surface_container_highest; 
+}
+
+/* MPRIS: arte arriba, botones abajo */
+.widget-mpris {
+  background: @surface_container_high;
+  border-radius: 16px;
+  margin: 20px 6px;
+  padding: 6px;
+}
+
+.widget-mpris-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.widget-mpris > box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.widget-mpris > box > button {   /* prev / play-pause / next */
+  margin-top: 8px;
+  background: transparent;
+}
+
+.widget-mpris > box > button:hover {
+  background: @surface_bright;
+}
+
+.widget-mpris-album-art {
+  border-radius: 12px;
+  margin: 6px;
+}
+
+.widget-mpris-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: @primary;
+}
+
+.widget-mpris-subtitle {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: @on_surface_variant;
+}
+
+/* Volumen / brillo / sliders genéricos */
+.widget-volume,
+.widget-backlight,
+.widget-slider {
+  background: @surface_container_low;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 12px;
+}
+
+/* Inhibidores */
+.widget-inhibitors > label {
+  margin: 8px;
+  font-size: 1.5rem;
+}
+
+.widget-inhibitors > button {
+  margin: 8px;
+  border-radius: 12px;
+  background: @secondary_container;
+  color: @on_secondary_container;
+}
+
+.widget-inhibitors > button:hover {
+  background: @surface_bright;
+}
